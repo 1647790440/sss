@@ -78,16 +78,36 @@ def select_suit(card_list):
 #分出炸弹、三条、对子、散牌
 def select_pair(card_list):
     c_list = card_list
+    c_list.append("^B")   #重点
+
     one = []
     two = []
     three = []
     four = []
+
+    t_list = []
     for i in range(len(c_list)-1):
-        
+        t_list.append(c_list[i])
+        #print(t_list)
+        #print(c_list[i])
+        if(c_list[i][1:] != c_list[i+1][1:]):
+            if(len(t_list) == 1):
+                one.append(t_list)
+            elif(len(t_list) == 2):
+                two.append(t_list)
+            elif(len(t_list) == 3):
+                three.append(t_list)
+            else:
+                four.append(t_list)
+            t_list = []
     return one,two,three,four
 
-#select_pair(['&2', '*4', '$5', '#6', '*7', '*8',  '#10',  '*Q', '#K', '*A','$A'])
 
+# one,two,three,four = select_pair(['&2', '*2', '$2', '#2', '*7', '*K',  '#K',  '*K', '#K', '*A','$A'])
+# print(one)
+# print(two)
+# print(three)
+# print(four)
 
 #判断是否存在特殊牌型
 def if_is_special_card():
@@ -99,22 +119,40 @@ def if_is_special_card():
 #找出剩余手牌中最大的选项
 #后敦和中敦都可以使用这个算法
 #前敦不需要再一个函数了，去掉中墩和后敦之后剩下的就是前敦了
-def select_best(seq_card_list):
+def select_best(card_list):
     best_card_list = []
+    if(len(card_list) == 3):
+        best_card_list = card_list
+        return best_card_list                   #这个return不太行
+
+    #前期准备
+    spade_list,heart_list,diamond_list,club_list = select_suit(card_list)
+    one_list,two_list,three_list,four_list = select_pair(card_list)
+
+    #同花顺——》炸弹——》葫芦——》顺子——》三条——》两队——》对子——》散牌
+    #顺子不好搞定 
+
     return best_card_list
+
+
+
+#逻辑问题
+
+
 
 def main():
     #变量定义
+    #好像并不是很需要变量定义
     card_list = []
     #前中后
-    first_caed_list = []
+    first_card_list = []
     second_card_list = []
     third_card_list = []
     #四花色
-    spade_list = []     #$
-    heart_list = []     #&
-    diamond_list = []   ##
-    club_list = []      #*
+    # spade_list = []     #$
+    # heart_list = []     #&
+    # diamond_list = []   ##
+    # club_list = []      #*
     #取排
     #todo
     card_string = "*2 *3 *4 *5 *6 *7 *8 *9 *10 *J *Q *K *A"   #测试
@@ -122,15 +160,15 @@ def main():
     #理牌
     #排序
     card_list = seq(card_list)
-    spade_list,heart_list,diamond_list,club_list = select_suit(card_list)
+    #spade_list,heart_list,diamond_list,club_list = select_suit(card_list)
     #后敦
     third_card_list = select_best(card_list)
-    card_list = cut_card(card_list,third_card_list)
+    card_list = cut_card(card_list,third_card_list)   #变成集合的过程中   还能保持有序吗？这是个问题
     #中敦
     second_card_list = select_best(card_list)
     card_list = cut_card(card_list,third_card_list)
     #前敦
-    first_caed_list = card_list
+    first_card_list = card_list
     #出牌
 
 #main()
