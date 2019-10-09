@@ -102,12 +102,28 @@ def select_pair(card_list):
             t_list = []
     return one,two,three,four
 
-
 # one,two,three,four = select_pair(['&2', '*2', '$2', '#2', '*7', '*K',  '#K',  '*K', '#K', '*A','$A'])
 # print(one)
 # print(two)
 # print(three)
 # print(four)
+
+
+#去掉重复的牌，用来检查顺子
+def remove_same_card(card_list):
+    card_dict = {'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,'J':11,'Q':12,'K':13,'A':14}  #大小比对
+    number_card_list = []
+    digital_card_list = []
+    for item in card_list:
+        number_card_list.append(item[1:])
+    number_card_list = sorted(set(number_card_list),key=number_card_list.index)
+    for item in number_card_list:
+        digital_card_list.append(card_dict[item])
+    return digital_card_list
+
+print(remove_same_card(['&2', '*2', '$2', '#2', '*7', '*K',  '#K',  '*K', '#K', '*A','$A']))
+
+
 
 #判断是否存在特殊牌型
 def if_is_special_card():
@@ -127,11 +143,13 @@ def select_best(card_list):
 
     #前期准备
     spade_list,heart_list,diamond_list,club_list = select_suit(card_list)
+
     one_list,two_list,three_list,four_list = select_pair(card_list)
 
-    #同花顺——》炸弹——》葫芦——》顺子——》三条——》两队——》对子——》散牌
+    #同花顺——》炸弹——》葫芦——》同花——》顺子——》三条——》两对——》对子——》散牌
     #顺子不好搞定 
-
+    #要重新考虑
+    
     return best_card_list
 
 
