@@ -17,9 +17,11 @@ def stl(card_string):
 
 
 def cut_card(card_list,select_best):
-    return list(set(card_list) - set(select_best))
+    t_list = card_list
+    t_list = sorted(set(card_list) - set(select_best),key=t_list.index)    #保证顺序
+    return t_list
 
-#print(cut_card(['*2', '*3', '*4', '*5', '*6', '*7', '*8', '*9', '*10', '*J', '*Q', '*K', '*A'],['*2', '*4', '*5', '*6', '*7', '*8',  '*10',  '*Q', '*K', '*A']))  单元测试
+#print(cut_card(['*2', '*3', '*4', '*5', '*6', '*7', '*8', '*9', '*10', '*J', '*Q', '*K', '*A'],['*2', '*4', '*5', '*6', '*7', '*8',  '*10',  '*Q', '*K', '*A'])) 
 
 
 #对卡牌进行排序
@@ -121,7 +123,7 @@ def remove_same_card(card_list):
         digital_card_list.append(card_dict[item])
     return digital_card_list
 
-print(remove_same_card(['&2', '*2', '$2', '#2', '*7', '*K',  '#K',  '*K', '#K', '*A','$A']))
+#print(remove_same_card(['&2', '*2', '$2', '#2', '*7', '*K',  '#K',  '*K', '#K', '*A','$A']))
 
 
 
@@ -135,12 +137,15 @@ def if_is_special_card():
 #找出剩余手牌中最大的选项
 #后敦和中敦都可以使用这个算法
 #前敦不需要再一个函数了，去掉中墩和后敦之后剩下的就是前敦了
-def select_best(card_list):
+#主函数
+def select_best(card_list):     
+    first_card_list = []
+    second_card_list = []
+    third_card_list = []
     best_card_list = []
     if(len(card_list) == 3):
         best_card_list = card_list
         return best_card_list                   #这个return不太行
-
     #前期准备
     spade_list,heart_list,diamond_list,club_list = select_suit(card_list)
 
@@ -163,9 +168,9 @@ def main():
     #好像并不是很需要变量定义
     card_list = []
     #前中后
-    first_card_list = []
-    second_card_list = []
-    third_card_list = []
+    # first_card_list = []
+    # second_card_list = []
+    # third_card_list = []
     #四花色
     # spade_list = []     #$
     # heart_list = []     #&
@@ -181,7 +186,7 @@ def main():
     #spade_list,heart_list,diamond_list,club_list = select_suit(card_list)
     #后敦
     third_card_list = select_best(card_list)
-    card_list = cut_card(card_list,third_card_list)   #变成集合的过程中   还能保持有序吗？这是个问题
+    card_list = cut_card(card_list,third_card_list)   #变成集合的过程中   还能保持有序吗？这是个问题  已经解决
     #中敦
     second_card_list = select_best(card_list)
     card_list = cut_card(card_list,third_card_list)
