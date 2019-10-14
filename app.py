@@ -4,7 +4,7 @@ from flask import render_template
 from flask import make_response, redirect, url_for
 from flask import jsonify
 from werkzeug.utils import secure_filename
-from os import path
+import os
 import json
 import datetime
 
@@ -13,6 +13,11 @@ import shisanshui
 app = Flask(__name__)
 
 wsgi_app = app.wsgi_app
+
+path = os.path.dirname(os.path.abspath(__file__))
+certfile = os.path.join(path,"sssxfd.top_public.crt")
+keyfile = os.path.join(path,"sssxfd.top.key")
+
 
 def stringtoimage(card_string):
     card_list = card_string.split(" ")
@@ -67,4 +72,4 @@ def card_division():
 
 if __name__ == '__main__':
     app.config['JSON_AS_ASCII'] = False
-    app.run(host='0.0.0.0', port=8080)    #外网访问，端口号为8080
+    app.run(host='0.0.0.0', port=8080,ssl_context=(certfile, keyfile))    #外网访问，端口号为8080
