@@ -13,4 +13,6 @@
 
 wx：phd02428 qq：1647790440
 
+请一定先联系管理员，不然就算通过了体验请求也不会有通知，没办法知道。
+
 ![这是二维码，如果图片显示失败请点击查看图片详情，或直接联系管理员](https://images.cnblogs.com/cnblogs_com/phd1999/1565045/o_%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg)
